@@ -24,7 +24,7 @@ fn main() {
     assert!(cmd.is_none());
     assert!(args.next().is_none());
 
-    git_init();
+    //git_init();
 
     let out = tempdir::TempDir::new("linux-raw-sys").unwrap();
     let out_dir = out.path();
@@ -87,7 +87,7 @@ fn main() {
 
     let linux_version = LINUX_VERSION;
     // Checkout a specific version of Linux.
-    git_checkout(linux_version);
+    //git_checkout(linux_version);
 
     let mut linux_archs = fs::read_dir(&format!("linux/arch"))
         .unwrap()
@@ -299,6 +299,7 @@ fn rust_arches(linux_arch: &str) -> &[&str] {
         | "frv" | "ia64" | "m32r" | "m68knommu" | "parisc" | "sh" | "um" | "xtensa"
         | "unicore32" | "c6x" | "nios2" | "openrisc" | "csky" | "arc" | "nds32" | "metag"
         | "tile" => &[],
+        "sw_64" => &["sw_64"],
         _ => panic!("unrecognized arch: {}", linux_arch),
     }
 }
@@ -306,6 +307,7 @@ fn rust_arches(linux_arch: &str) -> &[&str] {
 fn rust_arch_is_pre_gen(rust_arch: &str) -> bool {
     match rust_arch {
         "loongarch64" => true,
+        "sw_64" => true,
         _ => false,
     }
 }
